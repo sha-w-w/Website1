@@ -47,10 +47,10 @@ const samplePageLinks = [
 ]
 
 const moreLinks = [
-  { text: "Join us on Discord", url: "https://gatsby.dev/discord" },
+  { text: "Join us on Discord", url: "https://discord.gg/nysummer" },
   {
     text: "Documentation",
-    url: "https://gatsbyjs.com/docs/",
+    url: "https://discord.com/channels/1418777099593846879/1418777100793544805",
   },
   {
     text: "Starters",
