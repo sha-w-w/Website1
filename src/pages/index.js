@@ -1,128 +1,107 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-  },
-  {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
-    description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-  },
-]
+const IndexPage = () => {
+  const [formData, setFormData] = React.useState({
+      name: "",
+          discord: "",
+              department: "",
+                  experience: "",
+                    })
+                      const [status, setStatus] = React.useState(null)
 
-const samplePageLinks = [
-  {
-    text: "Page 2",
-    url: "page-2",
-    badge: false,
-    description:
-      "A simple example of linking to another page within a Gatsby site",
-  },
-  { text: "TypeScript", url: "using-typescript" },
-  { text: "Server Side Rendering", url: "using-ssr" },
-  { text: "Deferred Static Generation", url: "using-dsg" },
-]
+                        const handleChange = e => {
+                            setFormData({ ...formData, [e.target.name]: e.target.value })
+                              }
 
-const moreLinks = [
-  { text: "Join us on Discord", url: "https://discord.gg/nysummer" },
-  {
-    text: "Documentation",
-    url: "https://discord.com/channels/1418777099593846879/1418777100793544805",
-  },
-  {
-    text: "Starters",
-    url: "https://gatsbyjs.com/starters/",
-  },
-  {
-    text: "Showcase",
-    url: "https://gatsbyjs.com/showcase/",
-  },
-  {
-    text: "Contributing",
-    url: "https://www.gatsbyjs.com/contributing/",
-  },
-  { text: "Issues", url: "https://github.com/gatsbyjs/gatsby/issues" },
-]
+                                const handleSubmit = async e => {
+                                    e.preventDefault()
+                                        setStatus("Submitting...")
 
-const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
+                                            try {
+                                                  const res = await fetch("/submit", {
+                                                          method: "POST",
+                                                                  headers: { "Content-Type": "application/json" },
+                                                                          body: JSON.stringify(formData),
+                                                                                })
+                                                                                      if (res.ok) setStatus("✅ Submitted successfully!")
+                                                                                            else throw new Error("Failed to submit.")
+                                                                                                } catch {
+                                                                                                      setStatus("❌ Something went wrong.")
+                                                                                                          }
+                                                                                                            }
 
-const IndexPage = () => (
-  <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
-        ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
-      ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
-)
+                                                                                                              return (
+                                                                                                                  <Layout>
+                                                                                                                        <div className={styles.portalContainer}>
+                                                                                                                                <header className={styles.header}>
+                                                                                                                                          <h1 className={styles.title}>NYSRP Portal</h1>
+                                                                                                                                                    <p className={styles.subtitle}>by Shadow Ranger</p>
+                                                                                                                                                            </header>
 
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
-export const Head = () => <Seo title="Home" />
+                                                                                                                                                                    <section className={styles.section}>
+                                                                                                                                                                              <h2 className={styles.sectionTitle}>Department Application</h2>
+                                                                                                                                                                                        <form onSubmit={handleSubmit} className={styles.form}>
+                                                                                                                                                                                                    <input
+                                                                                                                                                                                                                  type="text"
+                                                                                                                                                                                                                                name="name"
+                                                                                                                                                                                                                                              placeholder="Your Name"
+                                                                                                                                                                                                                                                            value={formData.name}
+                                                                                                                                                                                                                                                                          onChange={handleChange}
+                                                                                                                                                                                                                                                                                        required
+                                                                                                                                                                                                                                                                                                    />
+                                                                                                                                                                                                                                                                                                                <input
+                                                                                                                                                                                                                                                                                                                              type="text"
+                                                                                                                                                                                                                                                                                                                                            name="discord"
+                                                                                                                                                                                                                                                                                                                                                          placeholder="Discord Tag (e.g. Ranger#1234)"
+                                                                                                                                                                                                                                                                                                                                                                        value={formData.discord}
+                                                                                                                                                                                                                                                                                                                                                                                      onChange={handleChange}
+                                                                                                                                                                                                                                                                                                                                                                                                    required
+                                                                                                                                                                                                                                                                                                                                                                                                                />
+                                                                                                                                                                                                                                                                                                                                                                                                                            <select
+                                                                                                                                                                                                                                                                                                                                                                                                                                          name="department"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        value={formData.department}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      onChange={handleChange}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    required
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <option value="">Select Department</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="Police">Police</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <option value="Fire & EMS">Fire & EMS</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="DOT">DOT</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <option value="Civilian">Civilian</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </select>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <textarea
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            name="experience"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          placeholder="Briefly describe your RP experience"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        value={formData.experience}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      onChange={handleChange}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    required
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button type="submit" className={styles.glowButton}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Submit Application
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {status && <p className={styles.status}>{status}</p>}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </section>
 
-export default IndexPage
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <section className={styles.section}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h2 className={styles.sectionTitle}>Useful Links</h2>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <div className={styles.links}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <a href="https://discord.gg/nysummer" target="_blank" rel="noreferrer">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Join Discord
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <a href="https://discord.com/channels/1418777099593846879/1418777100793544805" target="_blank" rel="noreferrer">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </section>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </Layout>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        )
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        export const Head = () => <Seo title="NYSRP Portal" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        export default IndexPage
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
