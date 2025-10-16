@@ -1,54 +1,83 @@
-.list {
-  display: grid;
-  margin: 0;
-  /* https://css-tricks.com/responsive-layouts-fewer-media-queries/ */
-  --w: 280px;
-  --n: 2;
-  gap: var(--size-gap);
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(max(var(--w), 100%/ (var(--n) + 1) + 0.1%), 1fr)
-  );
-  margin-bottom: var(--size-gap);
-  margin-top: var(--size-gap);
-}
+.portalContainer {
+    color: #e0e0ff;
+      text-align: center;
+        background: radial-gradient(circle at top, #080808, #03000f 80%);
+          min-height: 100vh;
+            padding: 3rem 1rem;
+              animation: fadeIn 1.5s ease-in;
+              }
 
-.listItem {
-  margin: 0;
-}
+              .title {
+                font-size: 2.5rem;
+                  font-weight: 700;
+                    text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+                    }
 
-.listItem::marker {
-  color: #e95800;
-}
+                    .subtitle {
+                      color: #aaa;
+                        margin-bottom: 2rem;
+                        }
 
-.listItem:nth-child(2)::marker {
-  color: #159bf3;
-}
+                        .section {
+                          margin: 2rem 0;
+                          }
 
-.listItem:nth-child(3)::marker {
-  color: #8eb814;
-}
+                          .sectionTitle {
+                            color: #0ff;
+                              font-size: 1.5rem;
+                                margin-bottom: 1rem;
+                                  text-shadow: 0 0 8px #0ff;
+                                  }
 
-.listItem:nth-child(4)::marker {
-  color: #663399;
-}
+                                  .form input,
+                                  .form select,
+                                  .form textarea {
+                                    display: block;
+                                      width: 100%;
+                                        max-width: 400px;
+                                          margin: 0.5rem auto;
+                                            padding: 0.6rem;
+                                              border: none;
+                                                border-radius: 6px;
+                                                  background: rgba(10, 10, 20, 0.8);
+                                                    color: #fff;
+                                                      outline: 1px solid #00f;
+                                                      }
 
-.listItemLink {
-  color: var(--color-primary);
-  font-weight: bold;
-}
+                                                      .glowButton {
+                                                        background: linear-gradient(90deg, #0ff, #00f);
+                                                          color: #000;
+                                                            font-weight: bold;
+                                                              padding: 0.8rem 2rem;
+                                                                border: none;
+                                                                  border-radius: 8px;
+                                                                    box-shadow: 0 0 10px #0ff, 0 0 30px #00f;
+                                                                      transition: 0.3s;
+                                                                      }
 
-.listItemDescription {
-  color: var(--color-text);
-  margin-bottom: 0;
-  margin-top: var(--space-1);
-}
+                                                                      .glowButton:hover {
+                                                                        transform: scale(1.05);
+                                                                          box-shadow: 0 0 25px #0ff, 0 0 40px #00f;
+                                                                          }
 
-.textCenter {
-  text-align: center;
-}
+                                                                          .links a {
+                                                                            margin: 0 10px;
+                                                                              color: #0ff;
+                                                                                text-decoration: none;
+                                                                                }
 
-.intro {
-  max-width: none;
-  line-height: var(--line-height-loose);
+                                                                                .links a:hover {
+                                                                                  text-shadow: 0 0 10px #0ff;
+                                                                                  }
+
+                                                                                  .status {
+                                                                                    margin-top: 1rem;
+                                                                                      color: #0ff;
+                                                                                      }
+
+                                                                                      @keyframes fadeIn {
+                                                                                        from { opacity: 0; transform: translateY(15px); }
+                                                                                          to { opacity: 1; transform: translateY(0); }
+                                                                                          }
+                                                                                          
 }
